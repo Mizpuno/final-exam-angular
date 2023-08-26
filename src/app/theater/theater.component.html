@@ -1,0 +1,86 @@
+<div class="container justify-content-center mt-4">
+    <ul class="nav nav-tabs justify-content-center" style="width: 100%;">
+        <li *ngFor="let theater of getTheaters" class="nav-link">
+            <a (click)="changeTheater(theater.id)"> {{theater.name}} </a>
+        </li>
+    </ul>
+
+    <div class="my-tab-content container bg-white p-4">
+        <div class="movie-detail">
+            <div class="container mt-3">
+                <div class="row">
+                    <div class="d-flex col-sm-6 justify-content-center justify-content-sm-end">
+                        <img style="width: 240px;" [src]="filteredTheater?.movie?.coverImage">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="h5 text-primary fw-bold my-3">{{filteredTheater?.movie?.name}}</div>
+                        <div class="h6">{{filteredTheater?.movie?.genre}}</div>
+                        <div class="h6">เรท: {{filteredTheater?.movie?.rate}}</div>
+                        <div class="h6">
+                            <i class="fa-regular fa-clock"></i>
+                            {{filteredTheater?.movie?.length}} นาที
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mx-sm-5" style="margin-bottom: 80px;">
+            <div class="h4 mt-5 mb-3">รอบฉาย</div>
+            <div class="row g-3">
+                <div *ngFor="let showtime of getFilteredShowTimes"
+                class="col-12 col-sm-6 col-md-4 col-lg-3"> 
+                <button 
+                class="btn btn-primary" 
+                style="width: 140px;"
+                (click)="changeTime(showtime.showTime)">
+                    {{showtime.showTime}}
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
+
+<!-- test checkout -->
+<ng-template>
+    <div class="row mt-5">
+        <div class="col-12 col-xl-9">
+            <div class="row text-center">
+                <div class="col">
+                    <span class="text-center bg-light" style="display: inline-block; width: 500px;">จอภาพยนตร์</span>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="container mt-4">
+                        <div *ngFor="let seatSet of catelog" class="row justify-content-center">
+                            <span class="text-center h4 mt-1" style="display: inline-block; width: 60px;"> J </span>
+                            <span 
+                            *ngFor="let seat of seatSet" 
+                            class="p-0 my-0" 
+                            style="display: inline-block; width: 44px; text-align: center; font-size: 24px; cursor: pointer; color: lightgrey;">
+                                <i class="fa-solid fa-couch"></i>
+                            </span>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shadow col-12 col-xl-3 bg-light mt-4 pt-4 px-sm-4">
+        <div class="fw-bold mb-3">
+            {{filteredTheater?.movie?.name}}
+        </div>
+        <ul>
+            <li><div class="my-2">รอบเวลา {{selectedTime}}</div></li>
+            <li><div class="my-2">โรงภาพยนต์ {{selectedTheater}}</div></li>
+            <li><div class="my-2">
+                <i class="fa-solid fa-couch" style="color: gray;"></i>
+                &nbsp; {{filteredTheater?.seatPrice}} บาท
+            </div></li> 
+        </ul>
+    </div>
+</ng-template>
+
